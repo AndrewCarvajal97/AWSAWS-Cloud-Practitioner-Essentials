@@ -378,9 +378,11 @@ Cuando se utiliza AWS Lambda, solo se paga por el tiempo de computación que se 
 Por ejemplo, una función Lambda sencilla podría implicar cambiar automáticamente el tamaño de las imágenes cargadas en la nube de AWS. En este caso, la función se activa cuando se carga una nueva imagen.
 
 
+![a1](Pasted%20image%2020231015165747.png)
+
 # Amazon Elastic Container Service (Amazon ECS)
 
-
+![[Vb6XgNBSnKqYKHZE_uIQLrKO0mUQKbGcV.png]]
 
 # Amazon Elastic Kubernetes Service (Amazon _EKS_)
 
