@@ -574,6 +574,21 @@ Las **subredes privadas** contienen recursos a los que solo se debe tener acces
 
 En una VPC, las subredes pueden comunicarse entre sí. Por ejemplo, podrías tener una aplicación que incluyera instancias de Amazon EC2 de una subred pública que se comunicaran con bases de datos ubicadas en una subred privada.
 
+```text
+La respuesta correcta es debes colocar las instancias de Amazon EC2 en una subred pública y las instancias de bases de datos de Amazon RDS en una subred privada.
+
+
+Una subred es una sección de una VPC en la que puede agrupar recursos en función de las necesidades operativas o de seguridad. Las subredes pueden ser públicas o privadas.
+
+
+Las subredes públicas contienen recursos a los que el público debe tener acceso, como el sitio web de una tienda en línea.
+
+
+Las subredes privadas contienen recursos a los que solo se debe tener acceso a través de la red privada, como una base de datos que contiene la información personal de los clientes y los historiales de pedidos.
+
+
+```
+
 ### Tráfico de red en una VPC
 
 Cuando un cliente solicita datos de una aplicación alojada en la nube de AWS, su petición se envía como un paquete. Un **paquete** es una unidad de datos enviada a través de Internet o de una red. 
@@ -590,6 +605,8 @@ Cada cuenta de AWS incluye una ACL de red predeterminada. Al configurar la VPC, 
 
 De forma predeterminada, la ACL de red predeterminada de tu cuenta permite todo el tráfico entrante y saliente, pero puedes modificarlo añadiendo tus propias reglas. En el caso de las ACL de red personalizadas, todo el tráfico entrante y saliente se deniega hasta que se agregan reglas para especificar qué tráfico se va a permitir. Además, todas las ACL de red tienen una regla de denegación explícita. Esta regla garantiza que si un paquete no coincide con ninguna de las demás reglas de la lista, se deniega.
 
+![](Pasted%20image%2020231016142508.png)
+
 ### Filtrado de paquetes sin estado
 
 Las ACL de red realizan un filtrado de paquetes **sin estado**. No recuerdan nada y comprueban los paquetes que cruzan el borde de la subred en cada sentido: entrantes y salientes. 
@@ -597,6 +614,225 @@ Las ACL de red realizan un filtrado de paquetes **sin estado**. No recuerdan nad
 Recuerda el ejemplo anterior de un viajero que quiere entrar en otro país. Esto es similar a enviar una petición desde una instancia de Amazon EC2 hacia Internet.
 
 Cuando una respuesta del paquete para esa petición vuelve a la subred, la ACL de red no recuerda la petición anterior. La ACL de red comprueba la respuesta del paquete con su lista de reglas para determinar si se debe permitir o denegar.
+
+![](dBABE8xwG3__B_pf_BwVBzMHZhlGGq4as.png)
+
+Una vez que un paquete ha entrado en una subred, debe tener evaluados sus permisos para los recursos de la subred, como las instancias de Amazon EC2. 
+
+El componente de la VPC que comprueba los permisos de paquetes de una instancia de Amazon EC2 es un [**grupo de seguridad**](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html).
+
+
+## Grupos de seguridad
+
+Un grupo de seguridad es un firewall virtual que controla el tráfico entrante y saliente de una instancia de Amazon EC2.
+
+![](Ps3HC3wj2weGUI9Q_wgQl4un4nawKTxKu.png)
+
+De forma predeterminada, un grupo de seguridad deniega todo el tráfico entrante y permite todo el tráfico saliente. Puedes agregar reglas personalizadas para configurar qué tráfico permitir o denegar.
+
+Por ejemplo, supongamos que te encuentras en un edificio de apartamentos con un portero que recibe a los invitados en el vestíbulo. Puedes imaginarte a los invitados como paquetes y al portero como un grupo de seguridad. A medida que llegan los invitados, el portero comprueba una lista para asegurarse de que pueden entrar en el edificio. Sin embargo, el portero no vuelve a comprobar la lista cuando los invitados salen del edificio.
+### Filtrado de paquetes con estado
+
+Los grupos de seguridad realizan **un filtrado de paquetes con estado**. Recuerdan las decisiones anteriores tomadas con los paquetes entrantes.
+
+Volvamos al ejemplo del envío de una solicitud desde una instancia de Amazon EC2 a Internet. 
+
+Cuando una respuesta de paquete para esa petición vuelve a la instancia, el grupo de seguridad recuerda la petición anterior. El grupo de seguridad permite que la respuesta continúe, independientemente de las reglas del grupo de seguridad entrante.
+
+Tanto las ACL de red como los grupos de seguridad permiten configurar reglas personalizadas para el tráfico de la VPC. Conforme sigues aprendiendo más sobre la seguridad y las redes de AWS, asegúrate de que tiene claras las diferencias entre las ACL de red y los grupos de seguridad.
+
+![](39YnhmvqGRSPIYc1_jf-c-3wtXtTRwRAV.png)
+
+![](Pasted%20image%2020231016143933.png)
+
+
+
+## Redes globales
+
+### Amazon route 53 (DNS de amazon)
+![](Pasted%20image%2020231016163307.png)
+
+![](Pasted%20image%2020231016163340.png)
+
+![](Pasted%20image%2020231016163448.png)
+
+## Sistema de nombres de dominio (DNS)**
+
+Supongamos que UnaEmpresa tiene un sitio web alojado en la nube de AWS. Los clientes introducen la dirección web en su navegador y pueden acceder al sitio web. Esto ocurre debido a la resolución del **sistema de nombres de dominio (DNS)**. La resolución DNS implica que un servidor DNS se comunique con un servidor web.
+
+Puedes pensar en DNS como la guía telefónica de Internet. La resolución DNS es el proceso de traducir un nombre de dominio a una dirección IP.
+
+![](D6SzKBUjtjlu4XKV_aio3PUwsl_xRVmft.png)
+
+Al introducir el nombre de dominio en el navegador, esta petición se envía a un servidor DNS.
+
+El servidor DNS solicita al servidor web la dirección IP que corresponde al sitio web de UnaEmpresa.
+
+El servidor web responde proporcionando la dirección IP del sitio web de UnaEmpresa, 192.0.2.0.
+
+## Amazon Route 53
+
+[**Amazon Route 53**](https://aws.amazon.com/route53) es un servicio web DNS. Ofrece a los desarrolladores y las empresas una forma fiable de dirigir a los usuarios finales a aplicaciones de Internet alojadas en AWS. 
+
+Amazon Route 53 conecta las peticiones de los usuarios a la infraestructura que se lanza en AWS (como instancias de Amazon EC2 y equilibradores de carga). Puede dirigir a los usuarios a la infraestructura fuera de AWS.
+
+Otra característica de Route 53 es la capacidad de administrar los registros DNS de los nombres de dominio. Se pueden registrar nuevos nombres de dominio directamente en Route 53. También se pueden transferir registros DNS para nombres de dominio existentes administrados por otros registradores de dominio. Esto permite administrar todos los nombres de dominio en una única ubicación.
+
+En el módulo anterior aprendiste sobre Amazon CloudFront, un servicio de entrega de contenido. En el siguiente ejemplo se describe cómo trabajan juntos Route 53 y Amazon CloudFront para entregar contenido a los clientes.
+
+![](TEOAsVw4sYCye_Ij_4ZSKDXpPVFAEMO14.png)
+
+### Recursos adicionales
+
+Para más información sobre los conceptos que se han tratado en el módulo 4, revisa estos recursos.
+
+- [Redes y entrega de contenido en AWS.](https://aws.amazon.com/products/networking)
+- [Blog de entrega de contenido y redes de AWS.](https://aws.amazon.com/blogs/networking-and-content-delivery/)
+- [Amazon Virtual Private Cloud.](https://aws.amazon.com/vpc)
+- [¿Qué es Amazon VPC?](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html)
+- [Cómo funciona Amazon VPC.](https://docs.aws.amazon.com/vpc/latest/userguide/how-it-works.html)
+
+
+
+# Databases
+
+**Objetivos de aprendizaje**
+
+En este módulo aprenderás lo siguiente:
+
+- Resumir el concepto básico de almacenamiento y bases de datos.
+- Describir las ventajas de Amazon Elastic Block Store (Amazon EBS).
+- Describir las ventajas de Amazon Simple Storage Solution (Amazon S3).
+- Describir las ventajas de Amazon Elastic File System (Amazon EFS).
+- Resumir varias soluciones de almacenamiento.
+- Describir las ventajas de Amazon Relational Database Service (RDS).
+- Describir las ventajas de Amazon DynamoDB.
+- Resumir varios servicios de base de datos.
+
+Crear snapshots para las backups de las EBS en caso de perdida de datos y asi tener respaldo del volumen 
+
+
+## **Almacenes de instancias**
+Los volúmenes de almacenamiento a nivel de bloque se comportan como discos duros físicos.
+
+Un [**almacén de instancias**](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html) proporciona almacenamiento temporal a nivel de bloque para una instancia de Amazon EC2. Un almacén de instancias es almacenamiento en disco que está conectado físicamente al equipo de alojamiento de una instancia EC2 y, por lo tanto, tiene la misma vida útil que la instancia. Cuando termina la instancia, se pierden los datos del almacén de instancias.
+
+Las instancias de Amazon EC2 son servidores virtuales. Si inicias una instancia a partir de un estado detenido, la instancia podría iniciarse en otro host, donde el volumen del almacén de instancias utilizado anteriormente no existe. Por lo tanto, AWS recomienda los almacenes de instancias para casos prácticos que impliquen datos temporales que no necesites a largo plazo.
+
+## Amazon Elastic Block Store
+
+[**Amazon Elastic Block Store (Amazon EBS)**](https://aws.amazon.com/ebs) es un servicio que proporciona volúmenes de almacenamiento a nivel de bloque que puede utilizar con instancias de Amazon EC2. Si detienes o terminas una instancia de Amazon EC2, todos los datos del volumen de EBS adjunto permanecen disponibles.
+
+Para crear un volumen de EBS, define la configuración (como el tamaño y el tipo de volumen) y aprovisiónalo. Después de crear un volumen de EBS, se puede adjuntar a una instancia de Amazon EC2.
+
+Dado que los volúmenes de EBS son para datos que deben persistir, es importante hacer una copia de seguridad de dichos datos. Se pueden hacer copias de seguridad progresivas de volúmenes de EBS creando instantáneas de Amazon EBS.
+
+Un volumen de Amazon EBS almacena datos en una **única** zona de disponibilidad. 
+
+Para adjuntar una instancia de Amazon EC2 a un volumen de EBS, tanto la instancia de Amazon EC2 como el volumen de EBS deben ubicarse en la misma zona de disponibilidad.
+
+
+### snapshot de EBS
+![](JqKd85CBlseuJL0B_9oU7jpmDc3xbIpZ-.png)
+
+![Image41.png](https://explore.skillbuilder.aws/files/a/w/aws_prod1_docebosaas_com/1697500800/n4usoEOMaOSLxTVEbtDspw/tincan/954352_1670115024_p1gjd7fq891mkv1s6t1t2vc3k18k2kq_zip/assets/JqKd85CBlseuJL0B_9oU7jpmDc3xbIpZ-.png)
+
+Una [**instantánea de EBS**](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSSnapshots.html) es una copia de seguridad progresiva. Esto significa que la primera copia de seguridad realizada de un volumen copia todos los datos. En las copias de seguridad posteriores, solo se guardan los bloques de datos que han cambiado desde la instantánea más reciente. 
+
+Las copias de seguridad progresivas son distintas a las copias de seguridad completas, en las que todos los datos de un volumen de almacenamiento se copian cada vez que se realiza una copia de seguridad. La copia de seguridad completa incluye datos que no han cambiado desde la copia de seguridad más reciente.
+
+
+## Amazon S3
+![](Pasted%20image%2020231016173457.png)
+[**Amazon Simple Storage Service (Amazon S3)**](https://aws.amazon.com/s3/) es un servicio que proporciona almacenamiento a nivel de objeto. Amazon S3 almacena datos como objetos en buckets.
+
+Puedes cargar cualquier tipo de archivo en Amazon S3, como imágenes, vídeos, archivos de texto, etc. Por ejemplo, puedes utilizar Amazon S3 para almacenar archivos de copia de seguridad, archivos multimedia de un sitio web o documentos archivados. Amazon S3 ofrece espacio de almacenamiento ilimitado. El tamaño máximo de archivo de un objeto de Amazon S3 es de 5 TB.
+
+Al cargar un archivo en Amazon S3, puedes establecer permisos para controlar la visibilidad y el acceso al mismo. También puedes utilizar la característica de control de versiones de Amazon S3 para realizar un seguimiento de los cambios en los objetos a lo largo del tiempo.
+### s3 standard
+
+- Diseñado para los datos a los que se accede con frecuencia.
+- Almacena datos en un mínimo de tres zonas de disponibilidad.
+
+S3 Standard proporciona alta disponibilidad para los objetos. Esto lo convierte en una buena opción para una amplia gama de casos prácticos, como sitios web, distribución de contenido y análisis de datos. S3 Standard tiene un precio más alto que otras clases de almacenamiento destinadas al almacenamiento de archivos y datos a los que se accede con poca frecuencia.
+
+### s3 standard-IA
+
+- Ideal para datos a los que se accede con poca frecuencia.
+- Similar a S3 Standard, pero con un precio de almacenamiento inferior y un precio de recuperación superior.
+
+S3 Standard-Infrequent Access es ideal para los datos a los que se accede con poca frecuencia, pero para los que se requiere una alta disponibilidad cuando sea necesario. Tanto S3 Standard como S3 Standard-Infrequent Access almacenan datos en un mínimo de tres zonas de disponibilidad. Proporciona el mismo nivel de disponibilidad que S3 Standard, pero con un precio de almacenamiento inferior y un precio de recuperación superior.
+
+### s3 one zone-IA
+- Almacena datos en una única zona de disponibilidad.
+- Tiene un precio de almacenamiento inferior al de S3 Standard-Infrequent Access.
+
+En comparación con S3 Standard y S3 Standard-Infrequent Access, que almacenan datos en un mínimo de tres zonas de disponibilidad, S3 One Zone-Infrequent Access almacena datos en una única zona de disponibilidad. Esto la convierte en una buena opción como clase de almacenamiento si se cumplen las siguientes condiciones:
+
+- Quieres ahorrar costes de almacenamiento.
+- Puedes reproducir fácilmente los datos en caso de que se dé un error en la zona de disponibilidad.
+
+### s3 intelligent tiering
+- Ideal para datos con patrones de acceso desconocidos o cambiantes.
+- Requiere una pequeña tarifa mensual de seguimiento y automatización por objeto.
+
+En la clase de almacenamiento de S3 Intelligent-Tiering, Amazon S3 supervisa los patrones de acceso de los objetos. Si no has accedido a un objeto durante 30 días consecutivos, Amazon S3 lo traslada automáticamente al nivel de acceso poco frecuente, S3 Standard-Infrequent Access. Si accedes a un objeto en el nivel de acceso poco frecuente, Amazon S3 lo traslada automáticamente al nivel de acceso frecuente, S3 Standard.
+
+
+
+### s3 glacier
+para archivar datos a largo plazo
+- Almacenamiento de bajo precio diseñado para archivar datos.
+- Posibilidad de recuperar objetos en unos minutos o unas horas.
+
+S3 Glacier es una clase de almacenamiento de bajo precio ideal para archivar datos. Por ejemplo, podrías utilizar esta clase de almacenamiento para almacenar registros de clientes archivados o fotos y archivos de vídeo antiguos.
+
+
+### s3 glacier deep archive
+
+- Clase de almacenamiento de objetos de menor precio ideal para archivar.
+- Posibilidad de recuperar objetos en un plazo de 12 horas.
+
+A la hora de decidir entre Amazon S3 Glacier y Amazon S3 Glacier Deep Archive, considera la rapidez con la que necesitas recuperar objetos archivados. Los objetos almacenados en la clase de almacenamiento de S3 Glacier se pueden recuperar en cuestión de minutos o de unas horas. En cambio, los objetos almacenados en la clase de almacenamiento S3 Glacier Deep Archive se pueden recuperar en un plazo de 12 horas.
+
+
+### object storage
+En **el almacenamiento de objetos**, cada objeto consta de datos, metadatos y una clave.
+
+Los datos pueden ser una imagen, un vídeo, un documento de texto o cualquier otro tipo de archivo. Los metadatos contienen información sobre qué son los datos, cómo se usan, el tamaño del objeto, etc. La clave de un objeto es su identificador único.
+
+### amazon elastic file system (EFS)
+
+Amazon EFS es un servicio regional. Almacena datos transversalmente en **varias** zonas de disponibilidad.   
+
+El almacenamiento duplicado permite acceder a los datos simultáneamente desde todas las zonas de disponibilidad de la región donde se encuentra un sistema de archivos. Además, los servidores en las instalaciones pueden acceder a Amazon EFS mediante AWS Direct Connect.
+
+### Almacenamiento de archivos
+
+En el **almacenamiento de archivos**, varios clientes (como usuarios, aplicaciones, servidores, etc.) pueden acceder a los datos almacenados en carpetas de archivos compartidos. En esta estrategia, un servidor de almacenamiento utiliza almacenamiento en bloques con un sistema de archivos local para organizar los archivos. Los clientes acceden a los datos a través de rutas de archivos.
+
+En comparación con el almacenamiento en bloques y el almacenamiento de objetos, el almacenamiento de archivos es ideal para casos prácticos en los que un gran número de servicios y recursos necesitan acceder a los mismos datos al mismo tiempo.
+
+[**Amazon Elastic File System (Amazon EFS)**](https://aws.amazon.com/efs/) es un sistema de archivos escalable que se utiliza con los servicios en la nube de AWS y los recursos en las instalaciones. A medida que se agregan y se eliminan archivos, Amazon EFS aumenta y se reduce automáticamente. Puedes escalar en función de la demanda a petabytes sin alterar las aplicaciones.
+
+## RDBMS
+
+migracion lift and shift 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
