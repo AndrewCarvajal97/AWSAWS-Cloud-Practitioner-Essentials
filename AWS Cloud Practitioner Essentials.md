@@ -377,17 +377,49 @@ Cuando se utiliza AWS Lambda, solo se paga por el tiempo de computación que se 
 
 Por ejemplo, una función Lambda sencilla podría implicar cambiar automáticamente el tamaño de las imágenes cargadas en la nube de AWS. En este caso, la función se activa cuando se carga una nueva imagen.
 
+![](Vb6XgNBSnKqYKHZE_uIQLrKO0mUQKbGcV.png)
 
-![a1](Pasted%20image%2020231015165747.png)
+# Containers
 
-# Amazon Elastic Container Service (Amazon ECS)
+**Los contenedores** proporcionan una forma estándar de empaquetar el código y las dependencias de tu aplicación en un solo objeto. También puedes utilizarlos para procesos y flujos de trabajo en los que existan requisitos esenciales de seguridad, fiabilidad y escalabilidad.
 
-![[Vb6XgNBSnKqYKHZE_uIQLrKO0mUQKbGcV.png]]
+
+
+
+![](3bFfVsxQDvtNIeVW_ecpda0HylMC-fVSQ.png)
+
+## Amazon Elastic Container Service (Amazon ECS)
+[**Amazon Elastic Container Service (Amazon ECS)**](https://aws.amazon.com/ecs/) es un sistema de administración de contenedores altamente escalable y de alto rendimiento que permite lanzar y escalar aplicaciones en contenedores en AWS. 
+
+Amazon ECS admite contenedores Docker. [Docker](https://www.docker.com/) es una plataforma de software que permite crear, probar e implementar aplicaciones rápidamente. AWS admite el uso de Docker Community Edition (de código abierto) y Docker Enterprise Edition (de suscripción). Con Amazon ECS, puedes utilizar las llamadas a la API para lanzar y detener aplicaciones habilitadas para Docker.
+
+
 
 # Amazon Elastic Kubernetes Service (Amazon _EKS_)
 
+[**Amazon Elastic Kubernetes Service (Amazon EKS)**](https://aws.amazon.com/eks/) es un servicio totalmente administrado que se puede utilizar para lanzar Kubernetes en AWS. 
+
+[Kubernetes](https://kubernetes.io/) es un software de código abierto que permite implementar y administrar aplicaciones en contenedores a escala. Una gran comunidad de voluntarios mantiene Kubernetes y AWS colabora activamente en dicha comunidad. A medida que se publican nuevas características y funcionalidades para las aplicaciones de Kubernetes, se pueden aplicar fácilmente estas actualizaciones a las aplicaciones administradas por Amazon EKS.
 
 
+# AWS Fargate
+
+[**AWS Fargate**](https://aws.amazon.com/fargate/) es un motor de computación sin servidor para contenedores. Funciona tanto con Amazon ECS como con Amazon EKS. 
+
+Con AWS Fargate no es necesario aprovisionar ni administrar servidores. AWS Fargate administra la infraestructura de servidores por ti. Puedes centrarte más en innovar y desarrollar tus aplicaciones y solo pagarás por los recursos necesarios para lanzar tus contenedores.
+
+## 
+
+**Recursos adicionales**
+
+Para más información sobre los conceptos que se han tratado en el módulo 2, revisa estos recursos.
+
+- [Computación en AWS](https://aws.amazon.com/products/compute).
+- [Blog de computación de AWS](https://aws.amazon.com/blogs/compute/).
+- [Servicios de computación de AWS](https://docs.aws.amazon.com/whitepapers/latest/aws-overview/compute-services.html).
+- [Tutoriales prácticos: computación](https://aws.amazon.com/getting-started/hands-on/?awsf.getting-started-category=category%23compute&awsf.getting-started-content-type=content-type%23hands-on).
+- [Profundizar en la categoría: sin servidor](https://aws.amazon.com/getting-started/deep-dive-serverless/).
+- [Historias de clientes de AWS: sin servidor](https://aws.amazon.com/solutions/case-studies/?customer-references-cards.sort-by=item.additionalFields.publishedDate&customer-references-cards.sort-order=desc&awsf.customer-references-location=*all&awsf.customer-references-segment=*all&awsf.customer-references-product=product%23vpc%7Cproduct%23api-gateway%7Cproduct%23cloudfront%7Cproduct%23route53%7Cproduct%23directconnect%7Cproduct%23elb&awsf.customer-references-category=category%23serverless).
 
 
 
