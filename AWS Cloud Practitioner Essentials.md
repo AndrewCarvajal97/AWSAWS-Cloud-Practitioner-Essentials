@@ -443,19 +443,160 @@ Una **zona de disponibilidad** es un centro de datos único o un grupo de centr
 
 ## # Ubicaciones perimetrales
 
+Utiliza el cloudfront y el DNS (Amazon Route 53)
+
+![](Pasted%20image%2020231015213336.png)
+
+#### AWS Outposts
+https://aws.amazon.com/es/outposts/
+Para usar AWS en las instalaciones
 ## CDN
-para almacenar datos en cache si no esta en la zona de disponibilidad local 
+para almacenar datos en cache si no esta en la zona de disponiblidad local 
+
+## Cómo aprovisionar recursos de AWS
+modelar fácilmente los recursos de la infraestructura con código para habilitar la conformidad de la configuración y una solución de problemas más rápida.
+
+API: Application programming interface - interfaz de programación de aplicaciones
+### AWS Management Console
+**AWS Management Console** es una interfaz basada en la web para acceder y administrar los servicios de AWS. Puedes acceder rápidamente a los servicios utilizados recientemente y buscar otros servicios por nombre, palabra clave o acrónimo. La consola incluye asistentes y flujos de trabajo automatizados que pueden simplificar el proceso de realización de tareas.  
+  
+También puedes utilizar la aplicación móvil de AWS Console para realizar tareas como supervisar recursos, ver alarmas y acceder a la información de facturación. En la aplicación móvil de AWS Management Console pueden permanecer iniciadas varias identidades al mismo tiempo.
+
+### AWS CLI
+Para ahorrar tiempo al realizar peticiones de API, puedes utilizar **AWS Command Line Interface (AWS CLI)**. AWS CLI te permite controlar varios servicios de AWS directamente desde la línea de comando en una herramienta. AWS CLI está disponible para los usuarios en Windows, macOS y Linux. 
+
+Mediante AWS CLI, puedes automatizar las acciones que realizan tus servicios y aplicaciones mediante scripts. Por ejemplo, puedes utilizar comandos para lanzar una instancia de Amazon EC2, conectar una instancia de Amazon EC2 a un grupo de Auto Scaling específico y mucho más.
+
+### SDK
+
+Otra opción para acceder a los servicios de AWS y administrarlos son los **kits de desarrollo de software (SDK)**. Los SDK te facilitan el uso de los servicios de AWS a través de una API diseñada para tu lenguaje de programación o plataforma. Los SDK te permiten utilizar los servicios de AWS con sus aplicaciones existentes o crear aplicaciones completamente nuevas que se ejecutarán en AWS.
+
+Para ayudarte a empezar a utilizar los SDK, AWS proporciona documentación y código de muestra para cada lenguaje de programación compatible. Entre los lenguajes de programación compatibles se incluyen C++, Java, .NET y muchos más.
+
+## AWS Elastic Beanstalk.
+
+## cloudformation
+https://docs.aws.amazon.com/es_es/AWSCloudFormation/latest/UserGuide/Welcome.html
+
+AWS CloudFormation es un servicio que le ayuda a modelar y configurar sus recursos de AWS, por lo que podrá dedicar menos tiempo a la administración de dichos recursos y más tiempo a centrarse en las aplicaciones que se ejecutan en AWS. Puede crear una plantilla que describa todos los recursos de AWS que desea (como instancias de Amazon EC2 o instancias de base de datos de Amazon RDS) y CloudFormation se encargará del aprovisionamiento y la configuración de dichos recursos. No es necesario crear y configurar individualmente los recursos de AWS ni averiguar qué depende de qué; CloudFormation se encarga de todo eso. Las siguientes situaciones demuestran cómo puede ayudarle CloudFormation.
+
+
+
+Revisa estos recursos para obtener más información sobre los conceptos que se han visto en el módulo 3.
+
+- [Infraestructura global](https://www.infrastructure.aws/).
+- [Mapa interactivo de la infraestructura global de AWS](https://aws.amazon.com/about-aws/global-infrastructure/).
+- [Regiones y zonas de disponibilidad](https://aws.amazon.com/about-aws/global-infrastructure/regions_az).
+- [Blog de redes y entrega de contenido de AWS](https://aws.amazon.com/blogs/networking-and-content-delivery/).
+- [Herramientas para crear en AWS](https://aws.amazon.com/tools/).
+- [Historias de clientes de AWS: entrega de contenido](https://aws.amazon.com/solutions/case-studies/?customer-references-cards.sort-by=item.additionalFields.publishedDate&customer-references-cards.sort-order=desc&awsf.customer-references-location=*all&awsf.customer-references-segment=*all&awsf.customer-references-product=product%23vpc%7Cproduct%23api-gateway%7Cproduct%23cloudfront%7Cproduct%23route53%7Cproduct%23directconnect%7Cproduct%23elb&awsf.customer-references-category=category%23content-delivery).
 
 
 
 
+# Redes 
+
+![](Pasted%20image%2020231016113705.png)
+
+gateway privada virtual
+
+## **Amazon Virtual Private Cloud (Amazon VPC)**
+
+Imagina los millones de clientes que utilizan los servicios de AWS. Además, imagina los millones de recursos que han creado dichos clientes, como las instancias de Amazon EC2. Sin límites en torno a todos estos recursos, el tráfico de red podría fluir entre ellos sin restricciones. 
+
+Un servicio de redes que se puede utilizar para establecer límites en torno a los recursos de AWS es [**Amazon Virtual Private Cloud (Amazon VPC)**](https://aws.amazon.com/vpc/).
+
+Amazon VPC permite aprovisionar una sección aislada de la nube de AWS. En esta sección aislada, puedes lanzar recursos en una red virtual definida. Dentro de una Virtual Private Cloud (VPC), puedes organizar los recursos en subredes. Una **subred** es una sección de una VPC que puede contener recursos como instancias de Amazon EC2.
+
+
+## **Puerta de enlace de Internet**
+
+Para permitir que el tráfico público de Internet acceda a tu VPC, debes conectar una **puerta de enlace de Internet** a la VPC.
+
+![](lW0GmhdqaJhYTD3r_WB7uPmQWReXexkzw.png)
+
+Una puerta de enlace de Internet es una conexión entre una VPC e Internet. Podemos imaginar que es como la puerta que utilizan los clientes para entrar a la cafetería. Sin una puerta de enlace de Internet, nadie puede acceder a los recursos de tu VPC.
+
+¿Qué ocurre si tienes una VPC que incluye solo recursos privados?
+
+## **Puerta de enlace privada virtual**
+
+Para acceder a los recursos privados de una VPC, puedes utilizar una **puerta de enlace privada virtual**. 
+
+A continuación se muestra un ejemplo de cómo funciona una puerta de enlace privada virtual. Puedes imaginarte que Internet es como el camino entre tu casa y la cafetería. Supongamos que viajas por esta carretera con un guardaespaldas que te protege. Sigues utilizando la misma carretera que otros clientes, pero con una capa adicional de protección. 
+
+El guardaespaldas es como una conexión de red privada virtual (VPN) que cifra (o protege) tu tráfico de Internet de todas las demás peticiones que lo rodean. 
+
+La puerta de enlace privada virtual es el componente que permite que el tráfico de Internet protegido entre en la VPC. Aunque tu conexión a la cafetería tiene protección adicional, es posible que se produzcan atascos porque estás utilizando la misma carretera que otros clientes.
+
+![](9akIG-EGGIHwgfsd_T69ZKdNt8vZqr1O7.png)
+
+Una puerta de enlace privada virtual permite establecer una conexión de red privada virtual (VPN) entre la VPC y una red privada, como un centro de datos en las instalaciones o una red corporativa interna. Una puerta de enlace privada virtual permite el tráfico en la VPC solo si procede de una red aprobada.
+
+## **AWS Direct Connect**
+
+[**AWS Direct Connect**](https://aws.amazon.com/directconnect/) es un servicio que permite establecer una conexión privada dedicada entre un centro de datos y una VPC.  
+
+Supongamos que hay un edificio de apartamentos con un pasillo que conecta directamente el edificio con la cafetería. Solo los residentes del edificio de apartamentos pueden utilizar este pasillo. 
+
+Este pasillo privado proporciona el mismo tipo de conexión dedicada que AWS Direct Connect. Los residentes pueden entrar en la cafetería sin necesidad de utilizar la vía pública compartida con otros clientes.
+
+![](vwuEJg0c2QBEM27F_gJZoFYEuJtSV6Xq-.png)
+
+La conexión privada que proporciona AWS Direct Connect ayuda a reducir los costes de red y aumentar la cantidad de ancho de banda que puede viajar a través de tu red.
+
+## Subredes y listas de control de acceso a la red
+
+
+![](Pasted%20image%2020231016135021.png)
+
+![](Pasted%20image%2020231016135330.png)
+
+![](Pasted%20image%2020231016135344.png)
+
+### ACL
+![](Pasted%20image%2020231016135733.png)
 
 
 
 
+### Subredes
+
+Una subred es una sección de una VPC en la que se pueden agrupar recursos en función de las necesidades operativas o de seguridad. Las subredes pueden ser públicas o privadas.
 
 
+![](7M7b5fxdxTZ8FGrG_uu3InGDGr1oqRMxJ.png)
 
+
+Las **subredes públicas** contienen recursos a los que el público debe tener acceso, como el sitio web de una tienda en línea.
+
+Las **subredes privadas** contienen recursos a los que solo se debe tener acceso a través de la red privada, como una base de datos que contiene la información personal de los clientes y los historiales de pedidos. 
+
+En una VPC, las subredes pueden comunicarse entre sí. Por ejemplo, podrías tener una aplicación que incluyera instancias de Amazon EC2 de una subred pública que se comunicaran con bases de datos ubicadas en una subred privada.
+
+### Tráfico de red en una VPC
+
+Cuando un cliente solicita datos de una aplicación alojada en la nube de AWS, su petición se envía como un paquete. Un **paquete** es una unidad de datos enviada a través de Internet o de una red. 
+
+Entra en una VPC a través de una puerta de enlace de Internet. Antes de que un paquete pueda entrar en una subred o salir de ella, se comprueban los permisos. Estos permisos indican quién ha enviado el paquete y cómo intenta comunicarse el paquete con los recursos de una subred.
+
+El componente de la VPC que comprueba los permisos de paquetes de subredes es una [**lista de control de acceso a la red (ACL)**](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-network-acls.html).
+
+### Listas de control de acceso a la red (ACL)
+
+Una lista de control de acceso a la red (ACL) es un firewall virtual que controla el tráfico entrante y saliente a nivel de subred.
+
+Cada cuenta de AWS incluye una ACL de red predeterminada. Al configurar la VPC, puedes utilizar la ACL de red predeterminada de tu cuenta o crear ACL de red personalizadas. 
+
+De forma predeterminada, la ACL de red predeterminada de tu cuenta permite todo el tráfico entrante y saliente, pero puedes modificarlo añadiendo tus propias reglas. En el caso de las ACL de red personalizadas, todo el tráfico entrante y saliente se deniega hasta que se agregan reglas para especificar qué tráfico se va a permitir. Además, todas las ACL de red tienen una regla de denegación explícita. Esta regla garantiza que si un paquete no coincide con ninguna de las demás reglas de la lista, se deniega.
+
+### Filtrado de paquetes sin estado
+
+Las ACL de red realizan un filtrado de paquetes **sin estado**. No recuerdan nada y comprueban los paquetes que cruzan el borde de la subred en cada sentido: entrantes y salientes. 
+
+Recuerda el ejemplo anterior de un viajero que quiere entrar en otro país. Esto es similar a enviar una petición desde una instancia de Amazon EC2 hacia Internet.
+
+Cuando una respuesta del paquete para esa petición vuelve a la subred, la ACL de red no recuerda la petición anterior. La ACL de red comprueba la respuesta del paquete con su lista de reglas para determinar si se debe permitir o denegar.
 
 
 
