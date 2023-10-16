@@ -421,6 +421,31 @@ Para más información sobre los conceptos que se han tratado en el módulo 2, r
 - [Profundizar en la categoría: sin servidor](https://aws.amazon.com/getting-started/deep-dive-serverless/).
 - [Historias de clientes de AWS: sin servidor](https://aws.amazon.com/solutions/case-studies/?customer-references-cards.sort-by=item.additionalFields.publishedDate&customer-references-cards.sort-order=desc&awsf.customer-references-location=*all&awsf.customer-references-segment=*all&awsf.customer-references-product=product%23vpc%7Cproduct%23api-gateway%7Cproduct%23cloudfront%7Cproduct%23route53%7Cproduct%23directconnect%7Cproduct%23elb&awsf.customer-references-category=category%23serverless).
 
+# Infraestructura global de AWS
+
+Latencia: tiempo que se toma en enviarse y recibir los datos
+
+![](Pasted%20image%2020231015210108.png)
+
+## Proximidad a los clientes
+
+Seleccionar una región cercana a tus clientes te ayudará a enviarles contenido más rápido. Por ejemplo, tu empresa tiene sede en Washington, DC, y muchos de tus clientes viven en Singapur. Puedes considerar la posibilidad de ejecutar tu infraestructura en la región de Virginia del Norte para estar cerca de la sede de la empresa y ejecutar tus aplicaciones desde la región de Singapur.
+
+## servicios disponibles en la región
+
+A veces, es posible que la región más cercana no tenga todas las características que deseas ofrecer a los clientes. AWS innova con frecuencia creando nuevos servicios y ampliando las características de los servicios existentes. No obstante, para que los nuevos servicios puedan estar disponibles en todo el mundo, a veces es necesario que AWS desarrolle hardware físico región a región. 
+
+Supongamos que tus desarrolladores quieren crear una aplicación que utilice Amazon Braket (plataforma de computación cuántica de AWS). En este curso, Amazon Braket aún no está disponible en todas las regiones de AWS del mundo, por lo que tus desarrolladores tendrían que ejecutarlo en una de las regiones que ya lo ofrecen.
+
+![](Pasted%20image%2020231015211948.png)
+
+Una **zona de disponibilidad** es un centro de datos único o un grupo de centros de datos dentro de una región. Las zonas de disponibilidad están ubicadas a decenas de kilómetros de distancia entre sí. Esto está lo suficientemente cerca como para tener baja latencia (el tiempo transcurrido entre el momento en que se solicita y se recibe el contenido) entre las zonas de disponibilidad. Sin embargo, si se produce un desastre en una parte de la región, están lo suficientemente separadas como para reducir la posibilidad de que se vean afectadas varias zonas de disponibilidad.
+
+## # Ubicaciones perimetrales
+
+## CDN
+para almacenar datos en cache si no esta en la zona de disponibilidad local 
+
 
 
 
@@ -437,14 +462,6 @@ Para más información sobre los conceptos que se han tratado en el módulo 2, r
 
 ---
 # ChatGPT Wiki
-
-
-
-
-
-
-
-
 
 ## Networking
 
